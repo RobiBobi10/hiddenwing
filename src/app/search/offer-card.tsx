@@ -1,8 +1,9 @@
-import type { NormalizedOffer, NormalizedSlice } from "@/domain/offer/offer";
+import type { NormalizedSlice } from "@/domain/offer/offer";
+import type { ScoredOffer } from "@/domain/optimization/ttv";
 
 function fmtTime(iso: string): string {
   if (!iso) return "";
-  const t = iso.slice(11, 16); // HH:MM from an ISO datetime
+  const t = iso.slice(11, 16); // HH:MM
   return t || iso;
 }
 
@@ -13,8 +14,14 @@ function fmtDuration(mins: number): string {
 }
 
 function stopsLabel(stops: number): string {
-  if (stops === 0) return "Direct";
-  return `${stops} stop${stops > 1 ? "s" : ""}`;
+  return stops === 0 ? "Direct" : `${stops} stop${stops > 1 ? "s" : ""}`;
+}
+
+function tagClass(tag: string): string {
+  if (tag === "Best value") return "tag tag-best";
+  if (tag === "Cheapest") return "tag tag-cheap";
+  if (tag === "Fastest") return "tag tag-fast";
+  return "tag";
 }
 
 function SliceRow({ slice }: { slice: NormalizedSlice }) {
@@ -33,21 +40,33 @@ function SliceRow({ slice }: { slice: NormalizedSlice }) {
   );
 }
 
-export default function OfferCard({ offer }: { offer: NormalizedOffer }) {
+export default function OfferCard({ scored, currency }: { scored: ScoredOffer; currency: string }) {
+  const { offer, tags, reasons, comfortScore } = scored;
+  const isBest = tags.includes("Best value");
+
   return (
-    <div className="card">
+    <div className={`card${isBest ? " card-best" : ""}`}>
+      {tags.length > 0 && (
+        <div className="tags">
+          {tags.map((t) => (
+            <span key={t} className={tagClass(t)}>
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="offer-main">
         <div>
           {offer.slices.map((slice, i) => (
             <SliceRow key={i} slice={slice} />
           ))}
           <div className="muted" style={{ marginTop: 6, fontSize: 13 }}>
-            {offer.owner} · {offer.cabinClass.replace(/_/g, " ")} · {offer.baggage.checkedBags}{" "}
-            checked bag{offer.baggage.checkedBags === 1 ? "" : "s"}
+            {offer.owner} · {offer.cabinClass.replace(/_/g, " ")} · comfort {comfortScore}/100
           </div>
+          <div className="reasons">{reasons.join(" · ")}</div>
         </div>
         <div className="price">
-          {offer.currency} {offer.totalAmount.toFixed(2)}
+          {currency} {offer.totalAmount.toFixed(2)}
         </div>
       </div>
     </div>

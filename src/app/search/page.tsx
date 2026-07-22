@@ -18,8 +18,8 @@ export default async function SearchPage() {
       </div>
       <h1>Find flights</h1>
       <p className="lede">
-        Real flight options via Duffel (test mode). Smart ranking by Total Trip Value comes in
-        the next milestone — for now, results are shown cheapest-first.
+        Real flight options via Duffel (test mode), ranked by <strong>Total Trip Value</strong> —
+        price, travel time, stops, comfort, and baggage weighed together, not just the lowest fare.
       </p>
       <SearchForm />
     </main>

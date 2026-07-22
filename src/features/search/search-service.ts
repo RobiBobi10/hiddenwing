@@ -1,9 +1,10 @@
-// Orchestrates a search: pick provider -> search -> (placeholder) order -> snapshot.
-// Real ranking (Total Trip Value + Comfort Score) replaces the cheapest-first
-// ordering in Milestone 3 — this is deliberately a stand-in.
+// Orchestrates a search: provider fetch -> TTV ranking (M3) -> snapshot.
+// The ranking replaces M2's naive cheapest-first sort.
 
 import type { NormalizedQuery, ProviderPort } from "@/domain/providers/provider-port";
-import type { NormalizedOffer } from "@/domain/offer/offer";
+import type { Preferences } from "@/domain/optimization/preferences";
+import { DEFAULT_PREFERENCES } from "@/domain/optimization/preferences";
+import { rankOffers, type RankResult } from "@/domain/optimization/rank";
 import { DuffelAdapter } from "./duffel/duffel-adapter";
 import { saveSearchSnapshot } from "./snapshot-repo";
 
@@ -11,26 +12,37 @@ export interface RunSearchOptions {
   provider?: ProviderPort; // injectable for tests
   userId?: string | null;
   persist?: boolean; // default true
+  preferences?: Preferences; // default house profile (M5 supplies per-user)
+}
+
+export interface SearchResult extends RankResult {
+  currency: string;
+  count: number;
 }
 
 export async function runSearch(
   query: NormalizedQuery,
   opts: RunSearchOptions = {},
-): Promise<NormalizedOffer[]> {
+): Promise<SearchResult> {
   const provider = opts.provider ?? new DuffelAdapter();
   const offers = await provider.search(query);
 
-  // Placeholder ordering — cheapest first. NOT the product. Replaced in M3.
-  offers.sort((a, b) => a.totalAmount - b.totalAmount);
+  const prefs = opts.preferences ?? DEFAULT_PREFERENCES;
+  const ranked = rankOffers(offers, prefs);
 
   if (opts.persist !== false) {
-    // Persistence must never break a search — log and continue.
+    // Persistence must never break a search — log and continue. Store in ranked order.
     try {
-      await saveSearchSnapshot(query, offers, provider.name, opts.userId ?? null);
+      await saveSearchSnapshot(
+        query,
+        ranked.scored.map((s) => s.offer),
+        provider.name,
+        opts.userId ?? null,
+      );
     } catch (err) {
       console.error("[search] snapshot persistence failed:", err);
     }
   }
 
-  return offers;
+  return { ...ranked, currency: offers[0]?.currency ?? "", count: ranked.scored.length };
 }

@@ -1,5 +1,5 @@
-// POST /api/search — protected. Validates input, runs the search, returns
-// normalized offers. The Duffel token never leaves the server.
+// POST /api/search — protected. Validates input, runs the search + TTV ranking,
+// returns scored results with anchors. The Duffel token never leaves the server.
 
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
@@ -22,8 +22,13 @@ export async function POST(req: Request) {
   }
 
   try {
-    const offers = await runSearch(parsed.data, { userId });
-    return NextResponse.json({ offers, count: offers.length });
+    const result = await runSearch(parsed.data, { userId });
+    return NextResponse.json({
+      results: result.scored,
+      anchors: result.anchors,
+      currency: result.currency,
+      count: result.count,
+    });
   } catch (err) {
     console.error("[api/search] provider error:", err);
     return NextResponse.json(

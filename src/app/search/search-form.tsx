@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NormalizedOffer } from "@/domain/offer/offer";
-import ResultsList from "./results-list";
+import ResultsList, { type SearchResults } from "./results-list";
 
 const CABINS = [
   { value: "economy", label: "Economy" },
@@ -35,7 +34,7 @@ const INITIAL: FormState = {
 
 export default function SearchForm() {
   const [form, setForm] = useState<FormState>(INITIAL);
-  const [offers, setOffers] = useState<NormalizedOffer[] | null>(null);
+  const [results, setResults] = useState<SearchResults | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,7 +46,7 @@ export default function SearchForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setOffers(null);
+    setResults(null);
     try {
       const res = await fetch("/api/search", {
         method: "POST",
@@ -63,7 +62,7 @@ export default function SearchForm() {
         );
         return;
       }
-      setOffers(data.offers ?? []);
+      setResults({ scored: data.results ?? [], anchors: data.anchors ?? {}, currency: data.currency ?? "" });
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -186,7 +185,7 @@ export default function SearchForm() {
         </div>
       )}
 
-      {offers && <ResultsList offers={offers} />}
+      {results && <ResultsList results={results} />}
     </>
   );
 }

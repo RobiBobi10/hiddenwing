@@ -1,9 +1,9 @@
 # Milestone 2 — Flight Search (Duffel)
 
-_Status: **✅ Complete** (2026-07-22, works locally) · Owner: You · Depends on: [M1](milestone-1-foundations.md) (✅ complete)_
+_Status: **✅ Complete** (2026-07-22, live) · Owner: You · Depends on: [M1](milestone-1-foundations.md) (✅ complete)_
 
-Verified: LHR→JFK round-trip returned 640 normalized offers, snapshotted to Neon. Remaining to
-fully close: add `DUFFEL_ACCESS_TOKEN` to Vercel and confirm `/search` on the live URL.
+Verified locally **and** on the live URL (hiddenwing.vercel.app/search): LHR→JFK round-trip returns
+normalized offers, snapshotted to Neon; deploy `b402e84` is Ready in Production.
 
 Part of the [Development Roadmap](development-roadmap.md). This is the **current** milestone — do
 not build M3+ (ranking, AI, flexibility, booking) yet.
@@ -192,8 +192,8 @@ M2 is complete when **all** of these are true:
 - [x] Each search and its returned offers are **snapshotted** to Postgres with `fetched_at`.
 - [x] Mapper and schema **unit tests** written (mapper logic verified). _(Route test with a mocked
       provider is optional polish; deferred.)_
-- [ ] The app **auto-deploys** to Vercel and `/search` works on the **live URL** — needs the token
-      added to Vercel env vars + a push.
+- [x] The app **auto-deploys** to Vercel and `/search` works on the **live URL** (token added to
+      Vercel, pushed, deploy `b402e84` Ready in Production).
 - [x] `.env.example` documents `DUFFEL_ACCESS_TOKEN`; no secrets committed.
 - [x] Results are labeled **indicative** (not a booking guarantee) — honesty until M6 re-validation.
 
