@@ -1,0 +1,39 @@
+# --- Secrets: NEVER commit these ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+dist/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# --- Python (for later Scale-Edition AI service) ---
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# --- Test / coverage ---
+coverage/
+playwright-report/
+test-results/
+
+# --- Prisma (local) ---
+prisma/*.db
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Logs ---
+*.log
+npm-debug.log*

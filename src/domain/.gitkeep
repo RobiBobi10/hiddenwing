@@ -1,0 +1,2 @@
+# Pure business logic (types, TTV optimization, comfort score) lands here in later
+# milestones. Kept empty now to establish the clean-architecture boundary early.
