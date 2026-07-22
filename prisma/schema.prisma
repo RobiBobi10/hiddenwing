@@ -1,0 +1,22 @@
+// FlightAI — Family Edition · Database schema
+// Milestone 1: just enough to prove auth <-> database works.
+// Later milestones add PreferenceProfile, Search, TripSolution, etc.
+// (see docs/architecture/09-database-design.md for the full Scale-Edition model).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique // links this row to the Clerk user
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

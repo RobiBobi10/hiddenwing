@@ -1,4 +1,4 @@
-# FlightAI — Family Edition
+# Hiddenwing — Family Edition
 
 Find the **best trip for you**, not just the cheapest flight. A personalized flight-trip optimizer
 you can run for your family. This repo is being built one milestone at a time — see
@@ -18,7 +18,7 @@ npm install        # one-time: download dependencies
 npm run dev        # start the app
 ```
 
-Open **http://localhost:3000** in your browser. You'll see the FlightAI landing page.
+Open **http://localhost:3000** in your browser. You'll see the Hiddenwing landing page.
 Try the status endpoint too: **http://localhost:3000/api/health**
 
 That's the Milestone-1 skeleton running on your machine. Every file you save reloads automatically.
@@ -62,5 +62,7 @@ docs/             The full product & architecture blueprint
 
 ## Status
 
-**Milestone 1 — Foundations** (in progress): runnable skeleton ✅. Next: connect Neon (database)
-and Clerk (auth). See the [milestone checklist](docs/implementation/milestone-1-foundations.md).
+**Milestone 1 — Foundations** (in progress): runnable skeleton ✅, database + auth code wired up ✅.
+Next: **you** create free Neon + Clerk accounts and paste the keys into `.env.local` — see
+[account setup](docs/implementation/milestone-1-account-setup.md) (10 minutes). Checklist:
+[milestone-1-foundations.md](docs/implementation/milestone-1-foundations.md).

@@ -46,7 +46,7 @@ and the quality gate (lint + typecheck + tests + build) is green.
 Greenfield — these are **new** files. Target structure:
 
 ```
-flightai/                              # repo root
+hiddenwing/                              # repo root
 ├─ package.json
 ├─ tsconfig.json                       # strict: true
 ├─ next.config.mjs

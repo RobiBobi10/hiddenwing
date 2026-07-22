@@ -162,7 +162,7 @@ modeled in the [Cost Model](../Review/cost-model.md) and the accompanying spread
 
 - **Why:** MVP books via **affiliate handoff** ([ADR-0003](adr/0003-affiliate-first-booking-model.md)),
   so **we process no card payments and stay out of PCI scope** — a deliberate cost/risk avoidance.
-  For **FlightAI Plus subscriptions** (Phase 2), **Stripe** is the default: best-in-class API,
+  For **Hiddenwing Plus subscriptions** (Phase 2), **Stripe** is the default: best-in-class API,
   Billing (0.7% of billing volume) on top of 2.9% + 30¢ card fees, plus Stripe Tax (0.5%) for VAT.
 - **Alternatives considered:** **Paddle / Lemon Squeezy** (Merchant-of-Record — they handle global
   sales tax/VAT and remittance for a higher cut; **strongly worth it** to offload EU VAT

@@ -1,20 +1,26 @@
 {
-  "name": "flightai",
+  "name": "hiddenwing",
   "version": "0.1.0",
   "private": true,
-  "description": "FlightAI — Family Edition. Personalized flight trip optimizer.",
+  "description": "Hiddenwing — Family Edition. Personalized flight trip optimizer.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "postinstall": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "next": "^15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@prisma/client": "^6.1.0",
+    "@clerk/nextjs": "^6.9.0",
+    "svix": "^1.42.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
@@ -23,6 +29,7 @@
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.0",
+    "prisma": "^6.1.0"
   }
 }

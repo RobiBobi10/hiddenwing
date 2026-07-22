@@ -6,7 +6,7 @@ Answers two questions directly: **what will every cost be**, and **will I have a
 beginning?** Figures are 2026 estimates in USD, grounded in the pricing sources at the bottom.
 They are **planning ranges, not quotes** — verify live, especially flight-provider terms (the
 [due-diligence spike](provider-due-diligence-spike.md) exists to pin these down). A companion
-spreadsheet (`FlightAI-Cost-Model.xlsx`) lets you change the assumptions.
+spreadsheet (`Hiddenwing-Cost-Model.xlsx`) lets you change the assumptions.
 
 > **The one-sentence answer:** thanks to free tiers and startup credits, your **out-of-pocket
 > software/infra cost at the very beginning is close to $0** — the real early costs are **people's
@@ -38,7 +38,7 @@ private family tool, almost every cost below disappears — no team, no legal, n
   work (§1) doesn't apply; and at 2–10 users you need none of the scaling infrastructure.
 
 The rest of this document is the **Scale Edition** cost model — what it costs *if and when* you grow
-FlightAI into a public product for thousands. Keep it for later; ignore it while you're building for
+Hiddenwing into a public product for thousands. Keep it for later; ignore it while you're building for
 your family.
 
 ---

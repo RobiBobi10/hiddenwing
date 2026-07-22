@@ -10,7 +10,7 @@ This doc covers GDPR compliance and privacy-by-design. Security controls are in
 > and a DPO before launch in each jurisdiction.
 
 ## 1. Roles & scope
-- FlightAI is a **data controller** for user account/preference data; providers and the LLM
+- Hiddenwing is a **data controller** for user account/preference data; providers and the LLM
   vendor are **processors/third parties** under contract (DPAs required).
 - Applies to EU/EEA users; mirror principles for UK GDPR and align with CCPA/CPRA where relevant.
 

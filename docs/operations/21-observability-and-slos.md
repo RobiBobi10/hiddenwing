@@ -3,7 +3,7 @@
 _Status: Draft · Owner: DevOps / SRE · Last updated: 2026-07-22_
 
 You cannot operate at scale, or protect trust, without seeing the system. This doc defines the
-three pillars, the SLOs that gate releases, and the business/AI metrics unique to FlightAI.
+three pillars, the SLOs that gate releases, and the business/AI metrics unique to Hiddenwing.
 
 ## 1. The three pillars
 - **Metrics** — RED (Rate, Errors, Duration) per service/endpoint; USE (Utilization, Saturation,
@@ -16,7 +16,7 @@ three pillars, the SLOs that gate releases, and the business/AI metrics unique t
 Everything is correlated by a single trace ID injected at the gateway and propagated outward,
 including into provider requests.
 
-## 2. Domain-specific metrics (what makes FlightAI observable)
+## 2. Domain-specific metrics (what makes Hiddenwing observable)
 | Metric | Why it matters |
 |---|---|
 | **Provider cost per search** & call volume | Dominant scaling cost; business-critical (NFR-20, GTM doc) |

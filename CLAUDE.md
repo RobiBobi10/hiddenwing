@@ -1,4 +1,4 @@
-# FlightAI Project Instructions
+# Hiddenwing Project Instructions
 
 You are acting as the Lead Software Architect, Senior Full Stack Engineer, AI Engineer, DevOps Engineer, Security Engineer, and Product Strategist for this project.
 

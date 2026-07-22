@@ -1,6 +1,6 @@
-# FlightAI Documentation
+# Hiddenwing Documentation
 
-> The single source of truth for FlightAI — an AI-powered travel **optimization** platform.
+> The single source of truth for Hiddenwing — an AI-powered travel **optimization** platform.
 > This is not a flight search engine. It finds the *optimal travel solution* for a traveler
 > across price, dates, flexibility, airports, duration, stops, airlines, baggage, comfort,
 > personal preferences, and total trip value.
@@ -71,7 +71,7 @@ Docs are grouped by audience and rate-of-change. Read top to bottom within a gro
 | [Provider Due-Diligence Spike](Review/provider-due-diligence-spike.md) | P0 pre-build investigation: inventory access, cost, legal, go/no-go |
 | [Risk Register](Review/risk-register.md) | Living, tracked table of all material risks (severity, owner, status) |
 | [Cost Model](Review/cost-model.md) | Every cost, at-start vs. scaling, with startup-credit offsets |
-| Cost Model spreadsheet | `Review/FlightAI-Cost-Model.xlsx` — interactive; change the blue assumptions |
+| Cost Model spreadsheet | `Review/Hiddenwing-Cost-Model.xlsx` — interactive; change the blue assumptions |
 
 ### `implementation/` — the build plan (Family Edition)
 | Doc | Purpose |
@@ -95,7 +95,7 @@ Docs are grouped by audience and rate-of-change. Read top to bottom within a gro
   Edition North Star.
 - **2026-07-22 (c)** — Final technical architecture: added [Technology Stack Decisions](architecture/24-technology-stack-decisions.md)
   (13 categories, each with why/alternatives/disadvantages, grounded in current 2026 pricing) and
-  a full [Cost Model](Review/cost-model.md) + interactive spreadsheet (`Review/FlightAI-Cost-Model.xlsx`).
+  a full [Cost Model](Review/cost-model.md) + interactive spreadsheet (`Review/Hiddenwing-Cost-Model.xlsx`).
   Noted the mid-2026 **Amadeus self-service decommission** (doc 13, risk R22). Key stack picks:
   Next.js · NestJS+FastAPI · PostgreSQL · Valkey · SQS+Valkey Streams · AWS (Fargate→EKS) · Claude
   on Bedrock · Duffel+GDS · Clerk→Ory · Stripe · Grafana Cloud · GitHub Actions.

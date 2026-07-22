@@ -2,7 +2,7 @@
 
 _Status: Draft · Owner: Product / Founders · Last updated: 2026-07-22_
 
-## 1. How FlightAI makes money
+## 1. How Hiddenwing makes money
 
 We separate the model into what's viable at MVP (low regulatory burden) and what unlocks better
 economics later (higher burden). See ADR-0003 for the accreditation decision.
@@ -12,7 +12,7 @@ economics later (higher burden). See ADR-0003 for the accreditation decision.
 | Stream | Description | Phase | Notes / risk |
 |---|---|---|---|
 | **Affiliate / referral** | Deep-link handoff to airlines & OTAs; earn CPA/CPC commission | MVP | Low margin (~1–2% of fare, or fixed CPA), no ticketing liability. Fastest to launch. |
-| **Subscription (FlightAI Plus)** | Monthly/annual: price monitoring, unlimited flexibility searches, priority AI planning, fare-drop rebooking alerts | Phase 2 | High margin, aligns us with the user (we're paid to save them money, not to upsell fares). Our preferred core. |
+| **Subscription (Hiddenwing Plus)** | Monthly/annual: price monitoring, unlimited flexibility searches, priority AI planning, fare-drop rebooking alerts | Phase 2 | High margin, aligns us with the user (we're paid to save them money, not to upsell fares). Our preferred core. |
 | **Ancillary / in-platform booking margin** | Once accredited, sell tickets directly and earn distribution margin + ancillary attach | Phase 3 | Requires IATA/seller-of-travel accreditation, PCI scope, refunds/IROPS support. |
 | **B2B / API licensing** | License the optimization engine to OTAs, TMCs, super-apps | **Phase 1–2 (elevated)** | **Likely the strongest business.** Sidesteps CAC, the cold-start problem, *and* partly the inventory-access problem (partners bring their own inventory). Review §8/§9 recommends starting a design-partner track in parallel with MVP, not deferring. |
 | **Anonymized demand insights** | Aggregate, privacy-safe route/price-trend data to airlines | Phase 3 | Only if GDPR-clean and non-identifiable; treat cautiously. |

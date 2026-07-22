@@ -52,7 +52,7 @@ Two lower-risk framings the review pushed, both retained here as live options:
   monetizing the one thing that's genuinely ours: the engine.
 
 ## 5. Positioning statement (working)
-> *For travelers who want the best trip, not just the cheapest flight — FlightAI is the travel
+> *For travelers who want the best trip, not just the cheapest flight — Hiddenwing is the travel
 > optimizer that learns what you value and finds the trip that maximizes it, and tells you why.*
 > Unlike metasearch that sorts a query, we decide for a person.
 

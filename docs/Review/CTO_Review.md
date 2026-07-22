@@ -1,4 +1,4 @@
-# CTO Review — FlightAI Blueprint
+# CTO Review — Hiddenwing Blueprint
 
 _Status: Critical review · Reviewer: acting CTO · Date: 2026-07-22 · Scope: all of `/docs`_
 

@@ -20,7 +20,7 @@ over, two days earlier, on an airline they forgot they preferred.
 
 ## 2. The vision
 
-> **FlightAI finds the *best trip for you*, not the cheapest flight matching your query.**
+> **Hiddenwing finds the *best trip for you*, not the cheapest flight matching your query.**
 
 We treat travel as a **constrained optimization problem** over a single objective —
 **Total Trip Value (TTV)** — that captures what a traveler actually cares about: money, time,
@@ -29,7 +29,7 @@ trade-offs*, and deterministic systems to *guarantee the prices and rankings are
 
 ## 3. What makes us different
 
-| Everyone else | FlightAI |
+| Everyone else | Hiddenwing |
 |---|---|
 | Matches exact inputs | Explores the flexibility space (dates, nearby airports, split tickets) |
 | Sorts by price or duration | Ranks by personalized Total Trip Value |
@@ -91,7 +91,7 @@ trust/UX guardrail.
 ## 8. Three-year picture
 
 A traveler says, in their own words, *"I want to be in Lisbon for a long weekend in October,
-cheap-ish but I'll pay for comfort, no red-eyes, and I hate Ryanair."* FlightAI returns three
+cheap-ish but I'll pay for comfort, no red-eyes, and I hate Ryanair."* Hiddenwing returns three
 explained options ranked by *their* definition of value, each with bags and seats already
 accounted for, each one-click to book — and remembers all of it next time.
 

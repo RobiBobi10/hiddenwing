@@ -18,7 +18,7 @@ dates. Each theme names what unlocks it.
 - Cross-session memory and proactive suggestions ("your usual NYC trip is €90 below average").
 
 **Monetization**
-- **FlightAI Plus** subscription: price monitoring, fare-drop rebooking, unlimited flexibility
+- **Hiddenwing Plus** subscription: price monitoring, fare-drop rebooking, unlimited flexibility
   searches, priority AI planning. _Unlocks: proven retention + willingness-to-pay from beta._
 - **B2B API v1**: license the Optimization Engine to a design-partner OTA/TMC. _Unlocks: stable
   engine + provider abstraction._
@@ -45,7 +45,7 @@ dates. Each theme names what unlocks it.
 
 ## Phase 4 (≈ 30 months+) — Scale-out & ecosystem
 
-- **Super-app / embed strategy**: FlightAI optimization inside partner apps (B2B2C at scale).
+- **Super-app / embed strategy**: Hiddenwing optimization inside partner apps (B2B2C at scale).
 - **Loyalty & points optimization**: value award vs. cash, multi-program optimization
   (award-travel community is a natural early-adopter base).
 - **Corporate travel**: policy-aware optimization, approvals, expense integration.

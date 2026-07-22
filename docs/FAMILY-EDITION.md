@@ -1,4 +1,4 @@
-# FlightAI — Family Edition (the plan we're actually building first)
+# Hiddenwing — Family Edition (the plan we're actually building first)
 
 _Status: **ACTIVE PLAN** · Owner: You · Last updated: 2026-07-22_
 
@@ -7,7 +7,7 @@ _Status: **ACTIVE PLAN** · Owner: You · Last updated: 2026-07-22_
 > **right now we are building the Family Edition**: the same great product, for 2–10 people
 > (family + friends), at **near-zero cost and near-zero ops**. Maximum quality, minimum spend.
 >
-> **The core idea:** keep the one thing that makes FlightAI special — the personalized
+> **The core idea:** keep the one thing that makes Hiddenwing special — the personalized
 > optimization and grounded AI — and cut everything that only exists to serve millions of strangers
 > (big infrastructure, compliance, a whole team). Because we build on the *same technologies* as the
 > Scale Edition, growing up later is **adding pieces, not rewriting.**

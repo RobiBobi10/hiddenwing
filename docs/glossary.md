@@ -4,7 +4,7 @@ Canonical definitions. If a term is used in more than one doc, it is defined **h
 
 | Term | Definition |
 |------|------------|
-| **Total Trip Value (TTV)** | The single scalar FlightAI optimizes. A weighted utility score combining monetary cost, time cost, comfort, risk, and preference-fit for a specific traveler. See [Flight Search Optimization](architecture/12-flight-search-optimization.md). |
+| **Total Trip Value (TTV)** | The single scalar Hiddenwing optimizes. A weighted utility score combining monetary cost, time cost, comfort, risk, and preference-fit for a specific traveler. See [Flight Search Optimization](architecture/12-flight-search-optimization.md). |
 | **Trip Solution** | A complete, bookable itinerary (one or more flight segments, optionally + ancillaries) evaluated as a single candidate. Not a "flight" — a solution may span multiple airports/dates. |
 | **Flexibility** | The degree to which a traveler's constraints (dates, airports, airlines) can move. Expressed as ranges, not fixed values (e.g. depart ±3 days, any airport within 100 km of NYC). |
 | **Flexibility Search** | Exploring the constraint space (date grid, nearby airports, split tickets) to find lower-TTV solutions the traveler didn't explicitly ask for. |
@@ -20,7 +20,7 @@ Canonical definitions. If a term is used in more than one doc, it is defined **h
 | **Ancillary** | A non-fare product: bags, seat selection, priority boarding, lounge, etc. Material to TTV. |
 | **Fare Cache** | A short-TTL store of recently seen prices used to reduce provider calls. Prices are always **re-validated** before booking. |
 | **Live Price** | A price confirmed against the provider at request time (not from cache). Required before any booking action. |
-| **Booking Handoff** | The point where FlightAI transfers the user to complete a purchase (affiliate deep-link in MVP; in-platform booking later). |
+| **Booking Handoff** | The point where Hiddenwing transfers the user to complete a purchase (affiliate deep-link in MVP; in-platform booking later). |
 | **Optimization Engine** | The deterministic service that scores and ranks Trip Solutions by TTV. Contains no LLM calls in the scoring path. |
 | **Planner (AI)** | The LLM-driven layer that turns natural language into a Preference Profile + structured query, and explains results. Never sets prices. |
 | **Grounding** | Constraining LLM output to verified system data (prices, times, rules) so it cannot fabricate. See [AI Safety & Evaluation](architecture/11-ai-safety-and-evaluation.md). |

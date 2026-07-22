@@ -8,7 +8,7 @@ _Status: Action plan · Owner: Founders + Architecture · Date: 2026-07-22 · Bl
 > it (up to and including superseding [ADR-0003](../architecture/adr/0003-affiliate-first-booking-model.md)).
 
 ## 1. Objective
-Determine, **per candidate provider**, whether FlightAI can obtain flight pricing/availability on
+Determine, **per candidate provider**, whether Hiddenwing can obtain flight pricing/availability on
 terms that make the product legal, technically feasible, and economically viable — and produce a
 real-numbers per-search unit-economics model. Reach a **go / no-go / change-the-plan** decision.
 
