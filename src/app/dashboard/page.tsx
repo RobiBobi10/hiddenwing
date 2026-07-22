@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import { db } from "@/lib/db";
@@ -26,6 +27,11 @@ export default async function DashboardPage() {
           ? `Synced to the database as ${dbUser.email}.`
           : "Signed in, but not yet synced to the database — check the webhook setup."}
       </div>
+      <p style={{ marginTop: 28 }}>
+        <Link href="/search" className="btn" style={{ textDecoration: "none" }}>
+          Search flights →
+        </Link>
+      </p>
     </main>
   );
 }

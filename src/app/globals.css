@@ -129,3 +129,90 @@ code {
   font-size: 13px;
   color: var(--text);
 }
+
+/* --- Milestone 2: search form + results --- */
+.search-form {
+  display: grid;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+}
+
+.field input,
+.field select {
+  background: #0e1526;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 10px;
+  padding: 13px 18px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.offer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.offer-slice {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

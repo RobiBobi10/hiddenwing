@@ -20,3 +20,44 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+/// Milestone 2: a flight search and a snapshot of the offers it returned.
+/// M3 ranks these; M6 re-validates prices against them. A stored price is NEVER
+/// bookable — see docs/architecture/adr/0009-offer-snapshot-storage.md
+model Search {
+  id            String   @id @default(cuid())
+  userId        String? // Clerk user id of whoever ran the search
+  origin        String
+  destination   String
+  departureDate String
+  returnDate    String?
+  adults        Int
+  children      Int
+  infants       Int
+  cabinClass    String
+  provider      String
+  offerCount    Int
+  createdAt     DateTime @default(now())
+  offers        Offer[]
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Offer {
+  id              String   @id @default(cuid())
+  searchId        String
+  search          Search   @relation(fields: [searchId], references: [id], onDelete: Cascade)
+  providerOfferId String
+  provider        String
+  totalAmount     Decimal  @db.Decimal(10, 2)
+  currency        String
+  owner           String
+  cabinClass      String
+  stops           Int
+  normalized      Json // full normalized offer snapshot (fetchedAt lives inside)
+  fetchedAt       DateTime
+  createdAt       DateTime @default(now())
+
+  @@index([searchId])
+}

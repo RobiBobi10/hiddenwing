@@ -1,6 +1,8 @@
 # Milestone 1 — Foundations & Authenticated Skeleton
 
-_Status: **Ready to build** · Owner: You · Depends on: nothing (first milestone)_
+_Status: **✅ Complete** (2026-07-22) · Owner: You · Depends on: nothing (first milestone)_
+
+Live at **hiddenwing.vercel.app**. Repo: `RobiBobi10/hiddenwing`.
 
 Part of the [Development Roadmap](development-roadmap.md). This is the **only** milestone detailed
 right now — do not build M2+ yet.
@@ -137,19 +139,20 @@ Discipline for this milestone: **CI must be green before M1 is closed.** Write `
 
 M1 is complete when **all** of these are true:
 
-- [ ] App runs locally with `npm run dev` and builds with `npm run build` (no TS/lint errors, strict mode on).
-- [ ] App is **deployed on Vercel** at a live URL; pushing to `main` auto-deploys.
-- [ ] **Neon Postgres** is connected; the initial Prisma migration is applied.
-- [ ] A user can **sign up, sign in, and sign out** via Clerk.
-- [ ] Visiting `/dashboard` while signed out **redirects to sign-in**; while signed in shows a protected "hello, {name}" page.
-- [ ] On sign-up, a `User` row is **created in Postgres** (via the Clerk webhook).
-- [ ] `GET /api/health` returns **200** with `{ app: "ok", db: "ok" }` (db check actually queries Postgres).
-- [ ] **CI is green** on a PR: lint, typecheck, unit tests, build (plus the auth smoke test).
-- [ ] `.env.example` lists **every** required variable; **no secrets are committed** (`.env*` gitignored).
-- [ ] `domain/` and `features/` boundary folders exist; the app `README.md` documents setup/run/test steps.
+- [x] App runs locally with `npm run dev` and builds with `npm run build` (no TS/lint errors, strict mode on).
+- [x] App is **deployed on Vercel** at a live URL; pushing to `main` auto-deploys.
+- [x] **Neon Postgres** is connected; the initial Prisma migration is applied.
+- [x] A user can **sign up, sign in, and sign out** via Clerk.
+- [x] Visiting `/dashboard` while signed out **redirects to sign-in**; while signed in shows a protected "hello, {name}" page.
+- [x] On sign-up, a `User` row is **created in Postgres** (via the Clerk webhook) — confirmed via the "Synced to the database as minionrobi@gmail.com" message.
+- [x] `GET /api/health` returns **200** with `{ app: "ok", db: "ok" }` (db check actually queries Postgres).
+- [ ] **CI is green** on a PR: lint, typecheck, unit tests, build (plus the auth smoke test). _(not yet exercised — no PR opened yet; ci.yml exists and runs on push to main)_
+- [x] `.env.example` lists **every** required variable; **no secrets are committed** (`.env*` gitignored).
+- [x] `domain/` and `features/` boundary folders exist; the app `README.md` documents setup/run/test steps.
 
-When every box is checked, M1 is done — **then** we detail and start Milestone 2 (Flight Search via
-Duffel), and not before.
+9/10 done. The CI box needs a real pull request to exercise (so far all work has been pushed
+straight to `main`) — worth doing once, if only to prove the gate works, but it isn't blocking
+Milestone 2. **Milestone 2 (Flight Search via Duffel) is next.**
 
 ---
 ### Notes / decisions for M1

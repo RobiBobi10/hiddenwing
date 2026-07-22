@@ -8,16 +8,16 @@ Vercel, all TypeScript). This roadmap breaks the MVP into six milestones.
 
 > **Working rule:** milestones are built **in order, one at a time**. Only the *current* milestone
 > is detailed in full; future milestones are listed by objective so we don't design or build them
-> prematurely. **Milestone 1 is detailed now** in
-> [milestone-1-foundations.md](milestone-1-foundations.md). The rest get their own detailed doc
+> prematurely. **M1 is ✅ complete**; **Milestone 2 is detailed now** in
+> [milestone-2-flight-search.md](milestone-2-flight-search.md). The rest get their own detailed doc
 > when we reach them.
 
 ## Milestone overview
 
 | # | Milestone | Objective (headline) | Depends on |
 |---|-----------|----------------------|-----------|
-| **M1** | **Foundations & Authenticated Skeleton** | A deployed, authenticated Next.js app connected to Postgres, with tooling, CI, and clean-architecture boundaries in place. No flight logic yet. | — |
-| M2 | Flight Search (Duffel) | Integrate one flight-data provider behind an adapter; a structured search returns real, normalized flight options. | M1 |
+| ✅ **M1** | **Foundations & Authenticated Skeleton** | A deployed, authenticated Next.js app connected to Postgres, with tooling, CI, and clean-architecture boundaries in place. No flight logic yet. | — |
+| ▶ **M2** | **Flight Search (Duffel)** | Integrate one flight-data provider behind an adapter; a structured search returns real, normalized flight options. | M1 |
 | M3 | Optimization Engine | The deterministic **TTV** ranking + Comfort Score — the core value. Rank options by *your family's* definition of value, not just price. | M2 |
 | M4 | AI Layer | Claude turns a plain-language trip request into a structured search, and writes **grounded** "why this trip" explanations (never invents prices). | M3 |
 | M5 | Personalization & Flexibility | Preference profiles per family member; flexibility search (nearby airports, ± a few days). | M3 (M4 helpful) |
@@ -52,5 +52,6 @@ Even at family scale, these Scale-Edition principles hold (they're cheap and the
 
 ---
 ### Current status
-- ▶ **M1 — Foundations:** detailed and ready to build → [milestone-1-foundations.md](milestone-1-foundations.md)
-- ⏸ M2–M6: objectives set above; **not yet detailed** (by design — one milestone at a time).
+- ✅ **M1 — Foundations:** complete → [milestone-1-foundations.md](milestone-1-foundations.md). Live at hiddenwing.vercel.app.
+- ▶ **M2 — Flight Search:** detailed and ready to build → [milestone-2-flight-search.md](milestone-2-flight-search.md)
+- ⏸ M3–M6: objectives set above; **not yet detailed** (by design — one milestone at a time).

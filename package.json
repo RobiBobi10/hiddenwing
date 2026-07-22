@@ -20,7 +20,9 @@
     "react-dom": "^19.0.0",
     "@prisma/client": "^6.1.0",
     "@clerk/nextjs": "^6.9.0",
-    "svix": "^1.42.0"
+    "@duffel/api": "^4.28.0",
+    "svix": "^1.42.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
