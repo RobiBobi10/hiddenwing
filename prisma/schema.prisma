@@ -61,3 +61,23 @@ model Offer {
 
   @@index([searchId])
 }
+
+/// Milestone 5: one saved profile per family member. Feeds the TTV weights the
+/// engine already consumes, plus hard constraints (filters). Falls back to
+/// DEFAULT_PREFERENCES when absent. See docs/architecture/12-flight-search-optimization.md
+model PreferenceProfile {
+  id                 String   @id @default(cuid())
+  clerkId            String   @unique
+  // soft weights (mirror src/domain/optimization/preferences.ts)
+  valueOfTimePerHour Int      @default(30)
+  checkedBagsNeeded  Int      @default(1)
+  estimatedBagFee    Int      @default(50)
+  perStopPenalty     Int      @default(40)
+  redEyePenalty      Int      @default(60)
+  comfortWeight      Int      @default(120)
+  // hard constraints (filters)
+  noRedEye           Boolean  @default(false)
+  maxStops           Int? // null = no limit
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}

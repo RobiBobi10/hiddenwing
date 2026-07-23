@@ -10,6 +10,7 @@ export interface SearchResults {
   scored: ScoredOffer[];
   anchors: Anchors;
   currency: string;
+  removed?: number; // hidden by the user's hard constraints
 }
 
 export default function ResultsList({
@@ -88,6 +89,12 @@ export default function ResultsList({
           {summary} <span style={{ opacity: 0.7 }}>Prices indicative, not a booking guarantee.</span>
         </p>
       )}
+      {results.removed ? (
+        <p className="muted" style={{ marginTop: 0, marginBottom: 12, fontSize: 13 }}>
+          {results.removed} option{results.removed === 1 ? "" : "s"} hidden by your preferences.{" "}
+          <a href="/profile">Adjust</a>
+        </p>
+      ) : null}
 
       {query && best && (
         <div style={{ marginBottom: 16 }}>

@@ -52,8 +52,14 @@ export default function SearchPanel() {
     currency?: string;
     query?: NormalizedQuery;
     interpreted?: string | null;
+    removed?: number;
   }) {
-    setResults({ scored: data.results ?? [], anchors: data.anchors ?? ({} as SearchResults["anchors"]), currency: data.currency ?? "" });
+    setResults({
+      scored: data.results ?? [],
+      anchors: data.anchors ?? ({} as SearchResults["anchors"]),
+      currency: data.currency ?? "",
+      removed: data.removed ?? 0,
+    });
     setQuery(data.query ?? null);
     setInterpreted(data.interpreted ?? null);
   }

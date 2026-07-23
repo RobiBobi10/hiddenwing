@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { buildSearchSchema } from "@/lib/validation/search-schema";
 import { runSearch } from "@/features/search/search-service";
+import { loadProfile } from "@/features/profile/profile-repo";
 import { GeminiAdapter } from "@/features/ai/gemini/gemini-adapter";
 
 export async function POST(req: Request) {
@@ -55,7 +56,8 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await runSearch(check.data, { userId });
+    const { preferences, constraints } = await loadProfile(userId);
+    const result = await runSearch(check.data, { userId, preferences, constraints });
     return NextResponse.json({
       interpreted: parsed.interpretation,
       query: check.data,
@@ -63,6 +65,7 @@ export async function POST(req: Request) {
       anchors: result.anchors,
       currency: result.currency,
       count: result.count,
+      removed: result.removedByConstraints,
     });
   } catch (err) {
     console.error("[ai/search] search error:", err);

@@ -27,9 +27,12 @@ export default async function DashboardPage() {
           ? `Synced to the database as ${dbUser.email}.`
           : "Signed in, but not yet synced to the database — check the webhook setup."}
       </div>
-      <p style={{ marginTop: 28 }}>
+      <p style={{ marginTop: 28, display: "flex", gap: 12, flexWrap: "wrap" }}>
         <Link href="/search" className="btn" style={{ textDecoration: "none" }}>
           Search flights →
+        </Link>
+        <Link href="/profile" style={{ alignSelf: "center" }}>
+          Your preferences
         </Link>
       </p>
     </main>

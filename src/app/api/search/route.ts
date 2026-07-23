@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { buildSearchSchema } from "@/lib/validation/search-schema";
 import { runSearch } from "@/features/search/search-service";
+import { loadProfile } from "@/features/profile/profile-repo";
 
 export async function POST(req: Request) {
   const { userId } = await auth();
@@ -22,13 +23,15 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await runSearch(parsed.data, { userId });
+    const { preferences, constraints } = await loadProfile(userId);
+    const result = await runSearch(parsed.data, { userId, preferences, constraints });
     return NextResponse.json({
       query: parsed.data,
       results: result.scored,
       anchors: result.anchors,
       currency: result.currency,
       count: result.count,
+      removed: result.removedByConstraints,
     });
   } catch (err) {
     console.error("[api/search] provider error:", err);
