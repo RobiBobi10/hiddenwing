@@ -1,6 +1,9 @@
 # Milestone 5 — Personalization & Flexibility
 
-_Status: **Ready to build** · Owner: You · Depends on: [M4](milestone-4-ai-layer.md) (✅ complete)_
+_Status: **✅ Complete** (2026-07-23, local) · Owner: You · Depends on: [M4](milestone-4-ai-layer.md) (✅ complete)_
+
+Verified: profiles change the ranking and hide-red-eye works (M5a); flexibility searched 5
+date/airport combinations, each result dated, best-value correctly ≠ cheapest (M5b). Push for live.
 
 Part of the [Development Roadmap](development-roadmap.md). This is the **current** milestone. It is
 built in two sub-parts: **M5a Preference Profiles** (build first), then **M5b Flexibility Search**.
