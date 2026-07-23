@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
+import { Brand } from "@/components/brand";
 import { db } from "@/lib/db";
 
 // Protected by src/middleware.ts — unauthenticated visitors never reach here.
@@ -13,9 +14,12 @@ export default async function DashboardPage() {
   return (
     <main className="wrap">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span className="badge">Dashboard · Protected</span>
+        <Brand />
         <UserButton afterSignOutUrl="/" />
       </div>
+      <span className="badge" style={{ marginTop: 20 }}>
+        Dashboard
+      </span>
       <h1>Hello, {user?.firstName ?? "there"} 👋</h1>
       <p className="lede">
         You&apos;re signed in and this page is protected — only you (and whoever

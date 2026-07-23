@@ -25,7 +25,7 @@ Vercel, all TypeScript). This roadmap breaks the MVP into six milestones.
 | ✅ **M3** | **Optimization Engine** | The deterministic **TTV** ranking + Comfort Score — the core value. Rank options by *your family's* definition of value, not just price. | M2 |
 | ✅ **M4** | **AI Layer** | The AI (Gemini Flash, free) turns a plain-language trip request into a structured search, and writes **grounded** "why this trip" explanations (never invents prices). | M3 |
 | ✅ **M5** | **Personalization & Flexibility** | Preference profiles per family member; flexibility search (nearby airports, ± a few days). | M3 (M4 helpful) |
-| ▶ **M6** | **Polish, Price-Integrity & Family Launch** | Live price re-validation before any booking handoff, error handling, and deploy for real family use. | M2–M5 |
+| ✅ **M6** | **Polish, Price-Integrity & Family Launch** | Live price re-validation before any booking handoff, error handling, and deploy for real family use. | M2–M5 |
 
 ## Why this order
 1. **M1 first** because everything needs a deployed, authenticated, tested skeleton to build in.
@@ -61,4 +61,8 @@ Even at family scale, these Scale-Edition principles hold (they're cheap and the
 - ✅ **M3 — Optimization Engine:** complete → [milestone-3-optimization-engine.md](milestone-3-optimization-engine.md). Best-value ranking live.
 - ✅ **M4 — AI Layer:** complete → [milestone-4-ai-layer.md](milestone-4-ai-layer.md). NL search + grounded explanations (Gemini Flash, free).
 - ✅ **M5 — Personalization & Flexibility:** complete → [milestone-5-personalization-flexibility.md](milestone-5-personalization-flexibility.md). Profiles + bounded flexibility search live.
-- ▶ **M6 — Polish, Price-Integrity & Launch:** detailed → [milestone-6-polish-price-integrity-launch.md](milestone-6-polish-price-integrity-launch.md). Three parts: M6a price-integrity, M6b polish/responsive, M6c hardening/launch.
+- ✅ **M6 — Polish, Price-Integrity & Launch:** complete → [milestone-6-polish-price-integrity-launch.md](milestone-6-polish-price-integrity-launch.md). Price re-validation, polish (logos/names/responsive), rate limiting, security headers, launch docs.
+
+**🎉 MVP COMPLETE — all six milestones built, tested, and deployed.** Two manual launch steps remain
+(run `npm audit` review + turn on Clerk allowlist) per the [launch checklist](launch-checklist.md).
+Next directions live in the [future roadmap](../product/19-future-roadmap.md).

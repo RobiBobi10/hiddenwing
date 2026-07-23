@@ -2,6 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { Brand } from "@/components/brand";
 import ProfileForm from "./profile-form";
 
 export default async function ProfilePage() {
@@ -11,9 +12,12 @@ export default async function ProfilePage() {
   return (
     <main className="wrap">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span className="badge">Your preferences · Milestone 5</span>
+        <Brand />
         <UserButton afterSignOutUrl="/" />
       </div>
+      <span className="badge" style={{ marginTop: 20 }}>
+        Your preferences
+      </span>
       <h1>Your travel preferences</h1>
       <p className="lede">
         These tune how <strong>your</strong> results are ranked — everyone in the family can have
