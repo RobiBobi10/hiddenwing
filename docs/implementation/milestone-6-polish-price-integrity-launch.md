@@ -137,16 +137,22 @@ M6c: src/lib/rate-limit.ts, next.config.mjs (headers),
       an expiry/hold time (no payment, no ticketing).
 - [x] _(M6c bonus, done alongside)_ security headers set in `next.config.mjs`.
 
-**M6b**
-- [ ] Usable and good-looking on **phone, tablet, desktop**; loading/empty/error states everywhere.
-- [ ] **Airline logos + city/airport names** shown; durations/dates readable.
-- [ ] Accessibility once-over done (keyboard, contrast, labels).
+**M6b — code complete (2026-07-23); pending browser verification**
+- [x] Responsive rules for phone/tablet/desktop (offer cards stack, form collapses); loading states
+      (button "Searching…/Understanding…"), empty ("no flights") and error states present.
+- [x] **Airline logos + city/airport names** shown (from Duffel place/carrier data); dates on each
+      option; readable durations. _(Route maps/distances left as optional future polish.)_
+- [x] Accessibility basics: every input has a label, logos have `alt`, buttons are real `<button>`s.
+      _(A deeper a11y audit is a future pass.)_
 
-**M6c**
-- [ ] **Rate limiting** on AI/search routes; **security headers** set; secrets re-verified server-only.
-- [ ] `npm audit` reviewed and safely patched; no internal errors leak to the client.
-- [ ] **Family-onboarding**, **launch**, and **before-you-go-public** docs written.
-- [ ] Final QA matrix passed; tests green; deployed.
+**M6c — code complete (2026-07-23); a couple of manual steps remain**
+- [x] **Rate limiting** on `/api/search`, `/api/ai/search`, `/api/ai/explain`, `/api/offers/:id/price`
+      (per-user, in-memory, best-effort — Upstash is the public-scale upgrade); unit-tested.
+- [x] **Security headers** set in `next.config.mjs`; secrets confirmed server-only, `.env*` ignored;
+      routes return generic messages and log internals (no leak).
+- [x] **Family-onboarding**, **launch-checklist**, **before-you-go-public** docs written.
+- [ ] `npm audit` review (manual — run it, apply safe fixes, no `--force`) and the final QA matrix
+      (in the launch checklist) — user steps before calling it launched.
 
 When every box is checked, **the MVP is complete** — Hiddenwing is a trustworthy, polished, private
 AI travel optimizer the family can use for a real trip. Post-MVP directions live in the

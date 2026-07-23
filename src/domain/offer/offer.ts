@@ -6,6 +6,8 @@
 export interface NormalizedSegment {
   origin: string; // IATA code
   destination: string; // IATA code
+  originName?: string; // human-readable city/airport (M6)
+  destinationName?: string;
   departingAt: string; // ISO datetime as the provider reports it (local to origin)
   arrivingAt: string; // ISO datetime
   durationMinutes: number;
@@ -17,6 +19,8 @@ export interface NormalizedSegment {
 export interface NormalizedSlice {
   origin: string; // IATA
   destination: string; // IATA
+  originName?: string; // human-readable city/airport (M6)
+  destinationName?: string;
   durationMinutes: number;
   stops: number; // segments - 1
   segments: NormalizedSegment[];
@@ -34,6 +38,7 @@ export interface NormalizedOffer {
   currency: string; // ISO currency code
   owner: string; // operating/marketing airline name
   ownerCode: string; // IATA airline code
+  ownerLogoUrl?: string | null; // small airline logo, if provided (M6)
   cabinClass: string; // economy | premium_economy | business | first
   slices: NormalizedSlice[]; // 1 slice = one-way, 2 = return
   baggage: NormalizedBaggage;

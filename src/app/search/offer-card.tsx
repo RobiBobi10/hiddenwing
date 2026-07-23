@@ -34,6 +34,10 @@ function stopsLabel(stops: number): string {
   return stops === 0 ? "Direct" : `${stops} stop${stops > 1 ? "s" : ""}`;
 }
 
+function place(iata: string, name?: string): string {
+  return name ? `${name} (${iata})` : iata;
+}
+
 function tagClass(tag: string): string {
   if (tag === "Best value") return "tag tag-best";
   if (tag === "Cheapest") return "tag tag-cheap";
@@ -64,8 +68,8 @@ function SliceRow({ slice }: { slice: NormalizedSlice }) {
         {fmtTime(first?.departingAt ?? "")} → {fmtTime(last?.arrivingAt ?? "")}
       </strong>{" "}
       <span className="muted">
-        {slice.origin} → {slice.destination} · {fmtDuration(slice.durationMinutes)} ·{" "}
-        {stopsLabel(slice.stops)}
+        {place(slice.origin, slice.originName)} → {place(slice.destination, slice.destinationName)} ·{" "}
+        {fmtDuration(slice.durationMinutes)} · {stopsLabel(slice.stops)}
       </span>
     </div>
   );
@@ -109,8 +113,17 @@ export default function OfferCard({ scored, currency }: { scored: ScoredOffer; c
           {offer.slices.map((slice, i) => (
             <SliceRow key={i} slice={slice} />
           ))}
-          <div className="muted" style={{ marginTop: 6, fontSize: 13 }}>
-            {offer.owner} · {offer.cabinClass.replace(/_/g, " ")} · comfort {comfortScore}/100
+          <div
+            className="muted"
+            style={{ marginTop: 6, fontSize: 13, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}
+          >
+            {offer.ownerLogoUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={offer.ownerLogoUrl} alt="" width={16} height={16} style={{ borderRadius: 3 }} />
+            )}
+            <span>
+              {offer.owner} · {offer.cabinClass.replace(/_/g, " ")} · comfort {comfortScore}/100
+            </span>
           </div>
           <div className="reasons">{reasons.join(" · ")}</div>
         </div>

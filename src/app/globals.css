@@ -300,3 +300,18 @@ code {
   font-size: 13px;
   color: #ff9b9b;
 }
+
+/* --- Milestone 6b: responsive --- */
+@media (max-width: 640px) {
+  .wrap {
+    padding: 40px 16px 72px;
+  }
+  .offer-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .price {
+    font-size: 18px;
+  }
+}

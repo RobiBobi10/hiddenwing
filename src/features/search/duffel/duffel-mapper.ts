@@ -19,6 +19,7 @@ interface DuffelPlace {
 interface DuffelCarrier {
   name?: string | null;
   iata_code?: string | null;
+  logo_symbol_url?: string | null;
 }
 interface DuffelBaggage {
   type?: string | null; // "checked" | "carry_on"
@@ -65,10 +66,16 @@ export function parseIsoDurationToMinutes(iso: string | null | undefined): numbe
   return days * 24 * 60 + hours * 60 + mins;
 }
 
+function placeName(p: DuffelPlace | null | undefined): string | undefined {
+  return p?.city_name ?? p?.name ?? undefined;
+}
+
 function mapSegment(seg: DuffelSegment): NormalizedSegment {
   return {
     origin: seg.origin?.iata_code ?? "",
     destination: seg.destination?.iata_code ?? "",
+    originName: placeName(seg.origin),
+    destinationName: placeName(seg.destination),
     departingAt: seg.departing_at ?? "",
     arrivingAt: seg.arriving_at ?? "",
     durationMinutes: parseIsoDurationToMinutes(seg.duration),
@@ -84,6 +91,9 @@ function mapSlice(slice: DuffelSlice): NormalizedSlice {
     origin: slice.origin?.iata_code ?? segments[0]?.origin ?? "",
     destination:
       slice.destination?.iata_code ?? segments[segments.length - 1]?.destination ?? "",
+    originName: placeName(slice.origin) ?? segments[0]?.originName,
+    destinationName:
+      placeName(slice.destination) ?? segments[segments.length - 1]?.destinationName,
     durationMinutes: parseIsoDurationToMinutes(slice.duration),
     stops: Math.max(0, segments.length - 1),
     segments,
@@ -128,6 +138,7 @@ export function mapDuffelOffer(offer: DuffelOfferInput, fetchedAt: string): Norm
     currency: offer.total_currency ?? "",
     owner: offer.owner?.name ?? "Unknown",
     ownerCode: offer.owner?.iata_code ?? "",
+    ownerLogoUrl: offer.owner?.logo_symbol_url ?? null,
     cabinClass: firstCabinClass(offer),
     slices: (offer.slices ?? []).map(mapSlice),
     baggage: extractBaggage(offer),

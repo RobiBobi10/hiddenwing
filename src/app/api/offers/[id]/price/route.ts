@@ -4,10 +4,16 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { DuffelAdapter } from "@/features/search/duffel/duffel-adapter";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+
+  const rl = rateLimit(`price:${userId}`, 30, 60_000);
+  if (!rl.ok) {
+    return NextResponse.json({ error: "rate_limited", message: "Please wait a moment." }, { status: 429 });
+  }
 
   const { id } = await ctx.params;
   if (!id) return NextResponse.json({ error: "bad_request" }, { status: 400 });

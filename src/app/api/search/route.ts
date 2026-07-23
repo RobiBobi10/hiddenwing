@@ -6,11 +6,20 @@ import { auth } from "@clerk/nextjs/server";
 import { buildSearchSchema } from "@/lib/validation/search-schema";
 import { runSearch } from "@/features/search/search-service";
 import { loadProfile } from "@/features/profile/profile-repo";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
+  const rl = rateLimit(`search:${userId}`, 20, 60_000);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "rate_limited", message: "Too many searches — please wait a moment." },
+      { status: 429 },
+    );
   }
 
   const body = await req.json().catch(() => null);
