@@ -263,3 +263,40 @@ code {
   color: var(--text);
   opacity: 0.85;
 }
+
+/* --- Milestone 6: confirm price --- */
+.offer-confirm {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-ghost:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.confirm-ok {
+  font-size: 13px;
+  color: var(--ok);
+}
+
+.confirm-bad {
+  font-size: 13px;
+  color: #ff9b9b;
+}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { NormalizedSlice } from "@/domain/offer/offer";
 import type { ScoredOffer } from "@/domain/optimization/ttv";
 
@@ -12,6 +15,13 @@ function fmtDate(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso.slice(0, 10);
   return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+}
+
+function fmtClock(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 
 function fmtDuration(mins: number): string {
@@ -31,13 +41,25 @@ function tagClass(tag: string): string {
   return "tag";
 }
 
+interface PriceCheck {
+  available: boolean;
+  totalAmount?: number;
+  currency?: string;
+  expiresAt?: string | null;
+  checkedAt: string;
+}
+
 function SliceRow({ slice }: { slice: NormalizedSlice }) {
   const first = slice.segments[0];
   const last = slice.segments[slice.segments.length - 1];
   const date = fmtDate(first?.departingAt ?? "");
   return (
     <div className="offer-slice">
-      {date && <span className="muted" style={{ marginRight: 6 }}>{date}</span>}
+      {date && (
+        <span className="muted" style={{ marginRight: 6 }}>
+          {date}
+        </span>
+      )}
       <strong>
         {fmtTime(first?.departingAt ?? "")} → {fmtTime(last?.arrivingAt ?? "")}
       </strong>{" "}
@@ -52,6 +74,24 @@ function SliceRow({ slice }: { slice: NormalizedSlice }) {
 export default function OfferCard({ scored, currency }: { scored: ScoredOffer; currency: string }) {
   const { offer, tags, reasons, comfortScore } = scored;
   const isBest = tags.includes("Best value");
+  const [check, setCheck] = useState<PriceCheck | null>(null);
+  const [checking, setChecking] = useState(false);
+
+  async function confirmPrice() {
+    setChecking(true);
+    setCheck(null);
+    try {
+      const res = await fetch(`/api/offers/${encodeURIComponent(offer.id)}/price`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      setCheck(res.ok ? data : { available: false, checkedAt: new Date().toISOString() });
+    } catch {
+      setCheck({ available: false, checkedAt: new Date().toISOString() });
+    } finally {
+      setChecking(false);
+    }
+  }
 
   return (
     <div className={`card${isBest ? " card-best" : ""}`}>
@@ -77,6 +117,25 @@ export default function OfferCard({ scored, currency }: { scored: ScoredOffer; c
         <div className="price">
           {currency} {offer.totalAmount.toFixed(2)}
         </div>
+      </div>
+
+      <div className="offer-confirm">
+        <button type="button" className="btn-ghost" onClick={confirmPrice} disabled={checking}>
+          {checking ? "Checking…" : "Confirm price"}
+        </button>
+        {check &&
+          (check.available ? (
+            <span className="confirm-ok">
+              ✓ Confirmed {check.currency ?? currency}{" "}
+              {(check.totalAmount ?? offer.totalAmount).toFixed(2)}
+              {check.expiresAt ? ` · hold until ${fmtClock(check.expiresAt)}` : ""} — book directly
+              with {offer.owner}.
+            </span>
+          ) : (
+            <span className="confirm-bad">
+              This fare is no longer available — please re-search for a live price.
+            </span>
+          ))}
       </div>
     </div>
   );
