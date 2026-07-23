@@ -24,7 +24,14 @@ export async function POST(req: Request) {
 
   try {
     const { preferences, constraints } = await loadProfile(userId);
-    const result = await runSearch(parsed.data, { userId, preferences, constraints });
+
+    const flexDays = Math.max(0, Math.min(3, Number(body?.flexDays ?? 0)));
+    const includeNearby = Boolean(body?.includeNearby);
+    const today = new Date().toISOString().slice(0, 10);
+    const flexibility =
+      flexDays > 0 || includeNearby ? { dayRange: flexDays, includeNearby, today } : undefined;
+
+    const result = await runSearch(parsed.data, { userId, preferences, constraints, flexibility });
     return NextResponse.json({
       query: parsed.data,
       results: result.scored,
@@ -32,6 +39,7 @@ export async function POST(req: Request) {
       currency: result.currency,
       count: result.count,
       removed: result.removedByConstraints,
+      searched: result.variantsSearched,
     });
   } catch (err) {
     console.error("[api/search] provider error:", err);

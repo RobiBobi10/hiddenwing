@@ -11,6 +11,7 @@ export interface SearchResults {
   anchors: Anchors;
   currency: string;
   removed?: number; // hidden by the user's hard constraints
+  searched?: number; // how many date/airport variants were searched
 }
 
 export default function ResultsList({
@@ -83,6 +84,11 @@ export default function ResultsList({
     <div>
       <p className="lede" style={{ marginBottom: 8, marginTop: 24 }}>
         {scored.length} option{scored.length === 1 ? "" : "s"} · <strong>best value first</strong>
+        {results.searched && results.searched > 1 ? (
+          <span className="muted" style={{ fontSize: 14 }}>
+            {" "}· searched {results.searched} date/airport combinations
+          </span>
+        ) : null}
       </p>
       {summary && (
         <p className="muted" style={{ marginTop: 0, marginBottom: 12, fontSize: 14 }}>

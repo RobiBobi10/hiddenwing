@@ -20,6 +20,8 @@ interface FormState {
   children: number;
   infants: number;
   cabinClass: string;
+  flexDays: number;
+  includeNearby: boolean;
 }
 
 const INITIAL: FormState = {
@@ -31,6 +33,8 @@ const INITIAL: FormState = {
   children: 0,
   infants: 0,
   cabinClass: "economy",
+  flexDays: 0,
+  includeNearby: false,
 };
 
 export default function SearchPanel() {
@@ -53,12 +57,14 @@ export default function SearchPanel() {
     query?: NormalizedQuery;
     interpreted?: string | null;
     removed?: number;
+    searched?: number;
   }) {
     setResults({
       scored: data.results ?? [],
       anchors: data.anchors ?? ({} as SearchResults["anchors"]),
       currency: data.currency ?? "",
       removed: data.removed ?? 0,
+      searched: data.searched ?? 1,
     });
     setQuery(data.query ?? null);
     setInterpreted(data.interpreted ?? null);
@@ -204,6 +210,33 @@ export default function SearchPanel() {
               onChange={(e) => update("infants", Number(e.target.value))} />
           </div>
         </div>
+        <div className="field-row">
+          <div className="field">
+            <label htmlFor="flexDays">Flexible dates</label>
+            <select
+              id="flexDays"
+              value={form.flexDays}
+              onChange={(e) => update("flexDays", Number(e.target.value))}
+            >
+              <option value={0}>Exact dates</option>
+              <option value={1}>± 1 day</option>
+              <option value={2}>± 2 days</option>
+              <option value={3}>± 3 days</option>
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="includeNearby">Nearby airports</label>
+            <select
+              id="includeNearby"
+              value={form.includeNearby ? "yes" : "no"}
+              onChange={(e) => update("includeNearby", e.target.value === "yes")}
+            >
+              <option value="no">This airport only</option>
+              <option value="yes">Include nearby airports</option>
+            </select>
+          </div>
+        </div>
+
         <button type="submit" className="btn" disabled={loading !== null}>
           {loading === "manual" ? "Searching…" : "Search flights"}
         </button>

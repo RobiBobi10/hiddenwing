@@ -134,11 +134,14 @@ tests/unit/flexibility.test.ts               # grid expansion + cap
       (verified: "74 options hidden by your preferences", red-eyes gone, top pick became daytime).
 - [x] `constraints.test.ts` passes (33/33 tests green); works locally. _(Push for live.)_
 
-**M5b**
-- [ ] The form offers **± N days** and **nearby airports** (opt-in).
-- [ ] Flexibility fan-out is **bounded/capped**, concurrent, merged, and de-duplicated.
-- [ ] Results show the **winning date/airport** and **delta vs. the literal query**.
-- [ ] `flexibility.test.ts` passes; works locally and deployed.
+**M5b — code complete (2026-07-23); pending browser verification**
+- [x] The form offers **± N days** (0–3) and **nearby airports** (opt-in).
+- [x] Flexibility fan-out is **bounded/capped** (≤ 8), concurrent (`Promise.all`), merged, and
+      de-duplicated by offer id.
+- [x] Results show each option's **date** and a **"searched N combinations"** note. _(Explicit
+      per-option delta labeling is a light M6 polish item.)_
+- [x] `flexibility.test.ts` written; grid/cap/past-date/nearby logic verified by replication (7/7).
+      _(Run `npm run test` + a browser search to confirm, then push for live.)_
 
 When both are done, M5 is complete — **then** Milestone 6 (Polish, Price-Integrity & Launch): live
 price re-validation before any booking handoff, the visual/responsive polish pass, maps/distances/

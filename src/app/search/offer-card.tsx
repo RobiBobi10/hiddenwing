@@ -7,6 +7,13 @@ function fmtTime(iso: string): string {
   return t || iso;
 }
 
+function fmtDate(iso: string): string {
+  if (!iso || iso.length < 10) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso.slice(0, 10);
+  return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+}
+
 function fmtDuration(mins: number): string {
   const h = Math.floor(mins / 60);
   const m = mins % 60;
@@ -27,8 +34,10 @@ function tagClass(tag: string): string {
 function SliceRow({ slice }: { slice: NormalizedSlice }) {
   const first = slice.segments[0];
   const last = slice.segments[slice.segments.length - 1];
+  const date = fmtDate(first?.departingAt ?? "");
   return (
     <div className="offer-slice">
+      {date && <span className="muted" style={{ marginRight: 6 }}>{date}</span>}
       <strong>
         {fmtTime(first?.departingAt ?? "")} → {fmtTime(last?.arrivingAt ?? "")}
       </strong>{" "}
