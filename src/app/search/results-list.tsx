@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ScoredOffer } from "@/domain/optimization/ttv";
 import type { Anchors } from "@/domain/optimization/rank";
 import type { NormalizedQuery } from "@/domain/providers/provider-port";
@@ -10,25 +10,60 @@ export interface SearchResults {
   scored: ScoredOffer[];
   anchors: Anchors;
   currency: string;
-  removed?: number; // hidden by the user's hard constraints
-  searched?: number; // how many date/airport variants were searched
+  removed?: number;
+  searched?: number;
 }
+
+type SortKey = "value" | "cheapest" | "fastest";
 
 export default function ResultsList({
   results,
   query,
+  defaultDirect = false,
 }: {
   results: SearchResults;
   query: NormalizedQuery | null;
+  defaultDirect?: boolean;
 }) {
   const { scored, anchors, currency } = results;
   const [explanation, setExplanation] = useState<string | null>(null);
   const [explaining, setExplaining] = useState(false);
 
+  const [sort, setSort] = useState<SortKey>("value");
+  const [directOnly, setDirectOnly] = useState(defaultDirect);
+  const [bagOnly, setBagOnly] = useState(false);
+  const [airline, setAirline] = useState("all");
+
+  const airlines = useMemo(
+    () => Array.from(new Set(scored.map((s) => s.offer.owner))).sort(),
+    [scored],
+  );
+
+  const displayed = useMemo(() => {
+    let list = scored.filter((s) => {
+      if (directOnly && s.metrics.totalStops > 0) return false;
+      if (bagOnly && s.offer.baggage.checkedBags < 1) return false;
+      if (airline !== "all" && s.offer.owner !== airline) return false;
+      return true;
+    });
+    list = [...list];
+    if (sort === "cheapest") list.sort((a, b) => a.offer.totalAmount - b.offer.totalAmount);
+    else if (sort === "fastest")
+      list.sort((a, b) => a.metrics.totalDurationMinutes - b.metrics.totalDurationMinutes);
+    // "value" keeps the server's best-value order
+    return list;
+  }, [scored, sort, directOnly, bagOnly, airline]);
+
+  const PAGE = 12;
+  const [page, setPage] = useState(1);
+  useEffect(() => setPage(1), [sort, directOnly, bagOnly, airline, results]);
+  const totalPages = Math.max(1, Math.ceil(displayed.length / PAGE));
+  const pageItems = displayed.slice((page - 1) * PAGE, page * PAGE);
+
   if (scored.length === 0) {
     return (
       <div className="status">
-        No flights found for this search. Try different dates or airports.
+        No flights found for this search. Try different dates or nearby airports.
       </div>
     );
   }
@@ -83,7 +118,7 @@ export default function ResultsList({
   return (
     <div>
       <p className="lede" style={{ marginBottom: 8, marginTop: 24 }}>
-        {scored.length} option{scored.length === 1 ? "" : "s"} · <strong>best value first</strong>
+        {displayed.length} of {scored.length} option{scored.length === 1 ? "" : "s"}
         {results.searched && results.searched > 1 ? (
           <span className="muted" style={{ fontSize: 14 }}>
             {" "}· searched {results.searched} date/airport combinations
@@ -122,11 +157,64 @@ export default function ResultsList({
         </div>
       )}
 
-      <div style={{ display: "grid", gap: 12 }}>
-        {scored.map((s) => (
-          <OfferCard key={s.offer.id} scored={s} currency={currency} />
-        ))}
+      <div className="filters">
+        <div className="filter-item">
+          <label htmlFor="sort">Sort</label>
+          <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
+            <option value="value">Best value</option>
+            <option value="cheapest">Cheapest</option>
+            <option value="fastest">Fastest</option>
+          </select>
+        </div>
+        <div className="filter-item">
+          <label htmlFor="airline">Airline</label>
+          <select id="airline" value={airline} onChange={(e) => setAirline(e.target.value)}>
+            <option value="all">All airlines</option>
+            {airlines.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
+            ))}
+          </select>
+        </div>
+        <label className="filter-toggle">
+          <input type="checkbox" checked={directOnly} onChange={(e) => setDirectOnly(e.target.checked)} />
+          Direct only
+        </label>
+        <label className="filter-toggle">
+          <input type="checkbox" checked={bagOnly} onChange={(e) => setBagOnly(e.target.checked)} />
+          Bag included
+        </label>
       </div>
+
+      {displayed.length === 0 ? (
+        <div className="status">No options match these filters. Loosen them to see more.</div>
+      ) : (
+        <>
+          <div style={{ display: "grid", gap: 12 }}>
+            {pageItems.map((s) => (
+              <OfferCard key={s.offer.id} scored={s} currency={currency} />
+            ))}
+          </div>
+          {totalPages > 1 && (
+            <div className="pager">
+              <button type="button" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+                ‹ Prev
+              </button>
+              <span>
+                Page {page} of {totalPages}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+              >
+                Next ›
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

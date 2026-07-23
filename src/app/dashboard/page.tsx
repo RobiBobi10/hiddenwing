@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
-import { Brand } from "@/components/brand";
+import AppHeader from "@/components/app-header";
 import { db } from "@/lib/db";
 
 // Protected by src/middleware.ts — unauthenticated visitors never reach here.
@@ -13,14 +12,8 @@ export default async function DashboardPage() {
 
   return (
     <main className="wrap">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Brand />
-        <UserButton afterSignOutUrl="/" />
-      </div>
-      <span className="badge" style={{ marginTop: 20 }}>
-        Dashboard
-      </span>
-      <h1>Hello, {user?.firstName ?? "there"} 👋</h1>
+      <AppHeader />
+      <h1 style={{ marginTop: 26 }}>Hello, {user?.firstName ?? "there"} 👋</h1>
       <p className="lede">
         You&apos;re signed in and this page is protected — only you (and whoever
         else you invite) can see it.
@@ -32,7 +25,7 @@ export default async function DashboardPage() {
           : "Signed in, but not yet synced to the database — check the webhook setup."}
       </div>
       <p style={{ marginTop: 28, display: "flex", gap: 12, flexWrap: "wrap" }}>
-        <Link href="/search" className="btn" style={{ textDecoration: "none" }}>
+        <Link href="/" className="btn" style={{ textDecoration: "none" }}>
           Search flights →
         </Link>
         <Link href="/profile" style={{ alignSelf: "center" }}>

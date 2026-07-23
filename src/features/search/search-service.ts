@@ -13,6 +13,21 @@ import { DuffelAdapter } from "./duffel/duffel-adapter";
 import { nearbyAirports } from "./nearby-airports";
 import { saveSearchSnapshot } from "./snapshot-repo";
 
+// Retry once on a transient provider error (usually rate-limiting), so a busy
+// moment (e.g. a price-calendar burst) doesn't fail the main search.
+async function searchWithRetry(provider: ProviderPort, q: NormalizedQuery): Promise<NormalizedOffer[]> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      return await provider.search(q);
+    } catch (e) {
+      lastErr = e;
+      await new Promise((r) => setTimeout(r, 600 * (attempt + 1)));
+    }
+  }
+  throw lastErr;
+}
+
 export interface FlexibilityInput {
   dayRange: number; // ± days (0–3)
   includeNearby: boolean;
@@ -59,7 +74,7 @@ export async function runSearch(
 
     const lists = await Promise.all(
       variants.map((v) =>
-        provider.search(v.query).catch((err) => {
+        searchWithRetry(provider, v.query).catch((err) => {
           console.error("[search] flexibility variant failed:", err);
           return [] as NormalizedOffer[];
         }),
@@ -73,7 +88,7 @@ export async function runSearch(
     }
     offers = [...byId.values()];
   } else {
-    offers = await provider.search(query);
+    offers = await searchWithRetry(provider, query);
   }
 
   const { kept, removed } = applyHardConstraints(offers, opts.constraints ?? DEFAULT_CONSTRAINTS);

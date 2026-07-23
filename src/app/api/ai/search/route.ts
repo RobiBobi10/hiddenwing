@@ -79,7 +79,11 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[ai/search] search error:", err);
     return NextResponse.json(
-      { error: "provider_error", message: "I understood your trip, but the flight search failed. Please try again." },
+      {
+        error: "provider_error",
+        interpreted: parsed.interpretation,
+        message: `I understood “${parsed.interpretation}”, but couldn't get flights for that route right now. In test mode not every route/date is available — try a common route like London–New York.`,
+      },
       { status: 502 },
     );
   }
