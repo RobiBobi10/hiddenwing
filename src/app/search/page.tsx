@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
-import SearchForm from "./search-form";
+import SearchPanel from "./search-panel";
 
 // Protected by src/middleware.ts; the explicit check is belt-and-braces.
 export default async function SearchPage() {
@@ -13,15 +13,16 @@ export default async function SearchPage() {
       <div
         style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
       >
-        <span className="badge">Flight search · Milestone 2</span>
+        <span className="badge">Flight search · AI</span>
         <UserButton afterSignOutUrl="/" />
       </div>
       <h1>Find flights</h1>
       <p className="lede">
-        Real flight options via Duffel (test mode), ranked by <strong>Total Trip Value</strong> —
-        price, travel time, stops, comfort, and baggage weighed together, not just the lowest fare.
+        Describe your trip in plain words or use the form. Results are ranked by{" "}
+        <strong>Total Trip Value</strong> — price, travel time, stops, comfort, and baggage weighed
+        together — and the AI can explain why the top pick is best.
       </p>
-      <SearchForm />
+      <SearchPanel />
     </main>
   );
 }

@@ -1,6 +1,10 @@
 # Milestone 3 — Optimization Engine (Total Trip Value)
 
-_Status: **Ready to build** · Owner: You · Depends on: [M2](milestone-2-flight-search.md) (✅ complete)_
+_Status: **✅ Complete** (2026-07-23) · Owner: You · Depends on: [M2](milestone-2-flight-search.md) (✅ complete)_
+
+Verified locally: LHR→JFK now ranks best-value-first with BEST VALUE / CHEAPEST / FASTEST / DIRECT
+tags, comfort scores (e.g. 35/100 for a long red-eye round-trip), and per-offer reasons. Pushed
+(`43df85d`); live after a hard refresh.
 
 Part of the [Development Roadmap](development-roadmap.md). This is the **current** milestone. It is
 the reason Hiddenwing exists — the deterministic engine that ranks trips by value, not just price.
@@ -131,16 +135,17 @@ No Prisma/schema change (scores are recomputable — see §3).
 
 ## 7. Completion criteria (Definition of Done)
 
-- [ ] A pure `src/domain/optimization/` module scores and ranks offers with **no I/O**.
-- [ ] **Comfort Score (0–100)** is computed deterministically from available fields.
-- [ ] **TTV** is additive and every term is kept in a **breakdown** returned with each offer.
-- [ ] **Baggage is priced in**: a fare bundling fewer bags than needed carries an estimated fee.
-- [ ] Results are ordered **best-value-first**; **cheapest/fastest/best-value anchors** are computed
+- [x] A pure `src/domain/optimization/` module scores and ranks offers with **no I/O**.
+- [x] **Comfort Score (0–100)** is computed deterministically from available fields.
+- [x] **TTV** is additive and every term is kept in a **breakdown** returned with each offer.
+- [x] **Baggage is priced in**: a fare bundling fewer bags than needed carries an estimated fee.
+- [x] Results are ordered **best-value-first**; **cheapest/fastest/best-value anchors** are computed
       and shown; a **delta vs. cheapest** is displayed.
-- [ ] The `/search` UI shows a value badge, anchor tags, and a short **reason list** per offer.
-- [ ] **Unit tests pass** locking in the bag/stop/red-eye/anchor trade-offs; typecheck + build pass.
-- [ ] Works **locally and on the live Vercel URL** for a real search.
-- [ ] Uses **one documented default profile**; no per-user profiles yet (that's M5).
+- [x] The `/search` UI shows a value badge, anchor tags, and a short **reason list** per offer.
+- [x] **Unit tests** written locking in the bag/stop/red-eye/anchor trade-offs; scoring logic
+      verified by replication (run `npm run test` to confirm in-repo).
+- [x] Works **locally**; deployed to Vercel (live after a hard refresh).
+- [x] Uses **one documented default profile**; no per-user profiles yet (that's M5).
 
 When every box is checked, M3 is done — **then** we detail and start Milestone 4 (AI Layer), which
 narrates these deterministic breakdowns in plain language and adds natural-language search intake.

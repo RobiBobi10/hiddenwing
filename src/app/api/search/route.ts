@@ -24,6 +24,7 @@ export async function POST(req: Request) {
   try {
     const result = await runSearch(parsed.data, { userId });
     return NextResponse.json({
+      query: parsed.data,
       results: result.scored,
       anchors: result.anchors,
       currency: result.currency,
